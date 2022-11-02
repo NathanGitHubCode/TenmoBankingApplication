@@ -90,7 +90,7 @@ public class App {
 
 	private void viewCurrentBalance() {
 		// TODO Auto-generated method stub
-        Account account = accountService.getBalance();
+        Account account = accountService.getBalance(int accountId);
         if(account != null){
             consoleService.printBalance();
         }
