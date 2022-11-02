@@ -46,6 +46,12 @@ public class ConsoleService {
         System.out.println();
     }
 
+    public void printBalance () {
+
+        System.out.println();
+        System.out.println("Current balance is : ");
+    }
+
     public UserCredentials promptForCredentials() {
         String username = promptForString("Username: ");
         String password = promptForString("Password: ");
