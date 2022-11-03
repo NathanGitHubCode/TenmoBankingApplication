@@ -1,22 +1,23 @@
 package com.techelevator.tenmo.model;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Account {
 
-    private int account_id;
-    private int user_id;
-    private double balance;
+    private int accountId;
+    private int userId;
+    private BigDecimal balance;
 
-    public int getAccount_id() {
-        return account_id;
+    public int getAccountId() {
+        return accountId;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
@@ -25,11 +26,11 @@ public class Account {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Account account = (Account) o;
-        return account_id == account.account_id && user_id == account.user_id && Double.compare(account.balance, balance) == 0;
+        return accountId == account.accountId && userId == account.userId && Objects.equals(balance, account.balance);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(account_id, user_id, balance);
+        return Objects.hash(accountId, userId, balance);
     }
 }

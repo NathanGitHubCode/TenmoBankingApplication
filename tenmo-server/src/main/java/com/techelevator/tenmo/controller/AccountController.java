@@ -1,33 +1,34 @@
 package com.techelevator.tenmo.controller;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.techelevator.tenmo.dao.AccountDao;
 import com.techelevator.tenmo.dao.JdbcAccountDao;
 import com.techelevator.tenmo.dao.JdbcUserDao;
 import com.techelevator.tenmo.model.Account;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.security.auth.login.AccountNotFoundException;
+import javax.sql.DataSource;
+import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("http://localhost:8080/")
 public class AccountController {
 
-    private JdbcAccountDao jdbcAccountDao;
-    private JdbcUserDao jdbcUserDao;
+    private final AccountDao accountDao;
 
 
-    public AccountController(JdbcAccountDao accountDao, JdbcUserDao userDao){
-       this.jdbcAccountDao = accountDao;
-       this.jdbcUserDao = userDao;
+    public AccountController(AccountDao accountDao){
+         this.accountDao = accountDao;
    }
 
-   @RequestMapping (path = "balance/{id}", method = RequestMethod.GET)
-    public Account getBalance(@PathVariable int accountId){
-        Account account = jdbcAccountDao.getBalance(accountId);
+   @RequestMapping (path = "/account/{id}", method = RequestMethod.GET)
+    public Account getBalance(@PathVariable("id") int accountId) {
+        Account account = accountDao.getBalance(accountId);
        if (account == null) {
            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Account balance Not Found");
        } else {

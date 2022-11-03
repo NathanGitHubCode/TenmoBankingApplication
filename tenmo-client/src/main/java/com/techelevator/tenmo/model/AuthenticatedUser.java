@@ -4,6 +4,7 @@ public class AuthenticatedUser {
 	
 	private String token;
 	private User user;
+	private Account account;
 	
 	public String getToken() {
 		return token;
@@ -16,5 +17,12 @@ public class AuthenticatedUser {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 }

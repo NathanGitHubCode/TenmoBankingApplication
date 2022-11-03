@@ -1,6 +1,8 @@
 package com.techelevator.tenmo.services;
 
 
+import com.techelevator.tenmo.model.Account;
+import com.techelevator.tenmo.model.AuthenticatedUser;
 import com.techelevator.tenmo.model.UserCredentials;
 
 import java.math.BigDecimal;
@@ -46,10 +48,9 @@ public class ConsoleService {
         System.out.println();
     }
 
-    public void printBalance () {
-
+    public void printBalance (int userId) {
         System.out.println();
-        System.out.println("Current balance is : ");
+        System.out.println("Current balance is : $");
     }
 
     public UserCredentials promptForCredentials() {

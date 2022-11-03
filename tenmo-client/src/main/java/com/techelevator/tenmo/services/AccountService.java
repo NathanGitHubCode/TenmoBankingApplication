@@ -9,6 +9,8 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
+import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.stream.BaseStream;
 
 public class AccountService {
@@ -16,32 +18,17 @@ public class AccountService {
     private static final String API_BASE_URL = "http://localhost:8080/";
     private final RestTemplate restTemplate = new RestTemplate();
 
-    public Account getBalance(int accountId){
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//        HttpEntity<Account> entity = new HttpEntity<>();
 
+    public Account getBalance(int accountId){
         Account account = null;
         try {
-            account = restTemplate.getForObject(API_BASE_URL + "balance", Account.class);
+            account = restTemplate.getForObject(API_BASE_URL + "account/" + accountId, Account.class);
         }
-        catch (RestClientResponseException e){
-            BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());
-        }
-        catch (ResourceAccessException e) {
+        catch (RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());
         }
         return account;
     }
-//    public Account
-//    HttpEntity<UserCredentials> entity = createCredentialsEntity(credentials);
-//    AuthenticatedUser user = null;
-//        try {
-//        ResponseEntity<AuthenticatedUser> response =
-//                restTemplate.exchange(baseUrl + "login", HttpMethod.POST, entity, AuthenticatedUser.class);
-//        user = response.getBody();
-//    } catch (RestClientResponseException | ResourceAccessException e) {
-//        BasicLogger.log(e.getMessage());
-//    }
+
 
 }
