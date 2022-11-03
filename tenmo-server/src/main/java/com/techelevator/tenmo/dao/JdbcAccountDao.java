@@ -23,14 +23,33 @@ public class JdbcAccountDao implements AccountDao{
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public Account getBalance(int accountId) {
-        String sql = "SELECT account_id, user_id, balance FROM account WHERE account_id = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, accountId);
-        if(results.next()) {
-            return mapRowToAccount(results);
-        }
-        throw new UsernameNotFoundException("User not found");
+    @Override
+    public BigDecimal getBalance(int userId) {
+
+        String sql = "SELECT balance FROM account WHERE user_id = ?;";
+        BigDecimal results = jdbcTemplate.queryForObject(sql, BigDecimal.class, userId);
+        return results;
     }
+
+    @Override
+    public void updateBalance(BigDecimal balance, int account) {
+        String sql = "UPDATE account SET balance = ? WHERE account_id = ?";
+        jdbcTemplate.update(sql, balance, account);
+    }
+
+    @Override
+    public int findAccountIdByUsername(String username){
+            String sql = "SELECT a.account_id, tu.user_id, tu.username FROM account AS a " +
+                         "JOIN tenmo_user AS tu ON tu.user_id = a.user_id WHERE username ILIKE ?;";
+            Integer id = jdbcTemplate.queryForObject(sql, Integer.class, username);
+            if (id != null) {
+                return id;
+            } else {
+                return -1;
+            }
+    }
+
+
 
     public Account mapRowToAccount(SqlRowSet rs) {
         Account account = new Account();

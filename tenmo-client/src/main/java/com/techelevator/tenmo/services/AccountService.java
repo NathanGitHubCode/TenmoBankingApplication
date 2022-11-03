@@ -19,10 +19,10 @@ public class AccountService {
     private final RestTemplate restTemplate = new RestTemplate();
 
 
-    public Account getBalance(int accountId){
+    public Account getBalance(int userId){
         Account account = null;
         try {
-            account = restTemplate.getForObject(API_BASE_URL + "account/" + accountId, Account.class);
+            account = restTemplate.getForObject(API_BASE_URL + "account/" + userId, Account.class);
         }
         catch (RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());

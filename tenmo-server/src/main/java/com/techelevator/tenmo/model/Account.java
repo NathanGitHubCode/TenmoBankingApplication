@@ -23,7 +23,7 @@ public class Account {
         return userId;
     }
 
-    public void setUserId(int user_id) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

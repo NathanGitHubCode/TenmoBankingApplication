@@ -92,16 +92,15 @@ public class App {
     }
 
 	private void viewCurrentBalance() {
-		// TODO Auto-generated method stub
-        int userId = currentUser.getAccount().getAccountId();
+        // TODO Auto-generated method stub
+        int userId = currentUser.getUser().getId();
         Account account = accountService.getBalance(userId);
-        if(account != null){
+        if (account != null) {
             consoleService.printBalance(userId);
-        }
-        else {
+        } else {
             consoleService.printErrorMessage();
         }
-	}
+    }
 
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
