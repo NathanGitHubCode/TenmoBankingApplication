@@ -51,7 +51,7 @@ public class TransferController {
         }
 
     }
-    @RequestMapping(path = "/transfer", method = RequestMethod.POST)
+    @RequestMapping(path = "/transfer/send", method = RequestMethod.POST)
     public void createSendTransfer(@Valid @RequestBody Transfer transfer) {
           int accountFrom = transfer.getUserFrom();
           int accountTo = transfer.getUserTo();
@@ -69,6 +69,12 @@ public class TransferController {
           else if(fromBalance.compareTo(transferAmount) < 0){
               throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You can't send more money than what's in your account");
           }
+    }
+
+    @RequestMapping(path = "/transfer/request", method = RequestMethod.POST)
+    public void createRequestTransfer(@Valid @RequestBody Transfer transfer){
+
+
     }
 
 }

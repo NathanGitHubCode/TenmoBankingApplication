@@ -8,6 +8,7 @@ import java.util.List;
 public interface TransferDao {
 
     Integer createSendTransfer(Transfer transfer);
+//    Integer createRequestTransfer(Transfer transfer);
     List<Transfer> listTransfers(int userId);
     Transfer findTransferById(int transferId);
 }
