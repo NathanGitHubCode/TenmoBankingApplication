@@ -2,9 +2,11 @@ package com.techelevator.tenmo.dao;
 
 import com.techelevator.tenmo.model.Transfer;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class JdbcTransferDao implements TransferDao{
@@ -16,37 +18,36 @@ public class JdbcTransferDao implements TransferDao{
     }
 
     @Override
-    public Integer createTransfer(Transfer transfer){
+    public Integer createSendTransfer(Transfer transfer){
         String sql = "INSERT INTO transfer (transfer_type_id, transfer_status_id, account_from, account_to, amount) " +
                      "VALUES (2, 2, ?, ?, ?) " +
                      "RETURNING transfer_id;";
-        Integer newId = jdbcTemplate.queryForObject(sql, Integer.class, transfer.getAccountFrom(), transfer.getAccountTo(), transfer.getAmount());
-//        try {
-//            newId = jdbcTemplate.queryForObject(sql, Integer.class, accountFrom, accountTo, amount);
-//        }
-//        catch (DataAccessException e){
-//            return false;
-//        }
-        return newId;
+        return jdbcTemplate.queryForObject(sql, Integer.class, transfer.getAccountFrom(), transfer.getAccountTo(), transfer.getAmount());
     }
 
     @Override
-    public Integer requestTransfer(Transfer transfer) {
-        String sql = "INSERT INTO transfer (transfer_type_id, transfer_status_id, account_from, account_to, amount) " +
-                     "VALUES (1, 1, ?, ?, ?) " +
-                     "RETURNING transfer_id;";
-        Integer newId = jdbcTemplate.queryForObject(sql, Integer.class, transfer.getAccountFrom(), transfer.getAccountTo(), transfer.getAmount());;
-//        try {
-//            newId = jdbcTemplate.queryForObject(sql, Integer.class, accountFrom, accountTo, amount);
-//        }
-//        catch (DataAccessException e) {
-//            return false;
-//        }
-        return newId;
+    public List<Transfer> listTransfers(int accountId) {
+        List<Transfer> transferList = new ArrayList<>();
+        String sql = "SELECT transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount " +
+                     "FROM transfer " +
+                     "WHERE account_from = ? OR account_to = ? ;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, accountId, accountId);
+        while(results.next()){
+            Transfer transfer = mapRowToTransfer(results);
+            transferList.add(transfer);
+        }
+        return transferList;
     }
 
-    @Override
-    public void sendMoney(Transfer transfer) {
-
+    public Transfer mapRowToTransfer(SqlRowSet rowSet) {
+        Transfer transfer = new Transfer();
+        transfer.setTransferId(rowSet.getInt("user_id"));
+        transfer.setTransferTypeId(rowSet.getInt("transfer_type_id"));
+        transfer.setTransferStatusId(rowSet.getInt("transfer_status_id"));
+        transfer.setAccountFrom(rowSet.getInt("account_from"));
+        transfer.setAccountTo(rowSet.getInt("account_to"));
+        transfer.setAmount(rowSet.getBigDecimal("amount"));
+        return transfer;
     }
+
 }

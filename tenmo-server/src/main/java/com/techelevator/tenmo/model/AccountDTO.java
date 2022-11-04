@@ -2,7 +2,7 @@ package com.techelevator.tenmo.model;
 
 import java.math.BigDecimal;
 
-public class TransferDTO {
+public class AccountDTO {
 
     private int accountFrom;
     private int accountTo;
@@ -31,7 +31,4 @@ public class TransferDTO {
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
-
-
-
 }

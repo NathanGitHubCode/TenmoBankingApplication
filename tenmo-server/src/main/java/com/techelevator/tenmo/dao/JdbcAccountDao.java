@@ -1,18 +1,11 @@
 package com.techelevator.tenmo.dao;
 
-import ch.qos.logback.core.db.DataSourceConnectionSource;
 import com.techelevator.tenmo.model.Account;
-import org.springframework.boot.autoconfigure.amqp.RabbitProperties;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import javax.security.auth.login.AccountNotFoundException;
-import javax.sql.DataSource;
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 @Component
 public class JdbcAccountDao implements AccountDao{
@@ -25,21 +18,19 @@ public class JdbcAccountDao implements AccountDao{
 
     @Override
     public BigDecimal getBalance(int userId) {
-
         String sql = "SELECT balance FROM account WHERE user_id = ?;";
-        BigDecimal results = jdbcTemplate.queryForObject(sql, BigDecimal.class, userId);
-        return results;
+        return jdbcTemplate.queryForObject(sql, BigDecimal.class, userId);
     }
 
     @Override
-    public void updateBalance(BigDecimal balance, int account) {
-        String sql = "UPDATE account SET balance = ? WHERE account_id = ?";
-        jdbcTemplate.update(sql, balance, account);
+    public boolean updateBalance(BigDecimal balance, int userId) {
+        String sql = "UPDATE account SET balance = ? WHERE user_id = ?;";
+        return jdbcTemplate.update(sql, balance, userId) == 1;
     }
 
     @Override
     public int findAccountIdByUsername(String username){
-            String sql = "SELECT a.account_id, tu.user_id, tu.username FROM account AS a " +
+            String sql = "SELECT a.account_id FROM account AS a " +
                          "JOIN tenmo_user AS tu ON tu.user_id = a.user_id WHERE username ILIKE ?;";
             Integer id = jdbcTemplate.queryForObject(sql, Integer.class, username);
             if (id != null) {

@@ -84,4 +84,5 @@ public class Transfer {
     public int hashCode() {
         return Objects.hash(transferId, transferTypeId, transferStatusId, accountFrom, accountTo, amount);
     }
+
 }
