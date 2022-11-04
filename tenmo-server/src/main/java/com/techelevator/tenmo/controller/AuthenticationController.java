@@ -63,15 +63,6 @@ public class AuthenticationController {
         }
     }
 
-    @RequestMapping(path = "/username/{username}", method = RequestMethod.GET)
-    public User findByUsername (@PathVariable String username) {
-        User user = userDao.findByUsername(username);
-        if(user == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User doesn't exist");
-        } else {
-            return user;
-        }
-    }
 
     /**
      * Object to return as body in JWT Authentication.

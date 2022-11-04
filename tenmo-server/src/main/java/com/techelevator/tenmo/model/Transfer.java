@@ -8,8 +8,8 @@ public class Transfer {
     private int transferId;
     private int transferTypeId;
     private int transferStatusId;
-    private int accountFrom;
-    private int accountTo;
+    private int userFrom;
+    private int userTo;
     private BigDecimal amount;
 
     public int getTransferId() {
@@ -36,20 +36,20 @@ public class Transfer {
         this.transferStatusId = transferStatusId;
     }
 
-    public int getAccountFrom() {
-        return accountFrom;
+    public int getUserFrom() {
+        return userFrom;
     }
 
-    public void setAccountFrom(int accountFrom) {
-        this.accountFrom = accountFrom;
+    public void setUserFrom(int userFrom) {
+        this.userFrom = userFrom;
     }
 
-    public int getAccountTo() {
-        return accountTo;
+    public int getUserTo() {
+        return userTo;
     }
 
-    public void setAccountTo(int accountTo) {
-        this.accountTo = accountTo;
+    public void setUserTo(int userTo) {
+        this.userTo = userTo;
     }
 
     public BigDecimal getAmount() {
@@ -66,8 +66,8 @@ public class Transfer {
                 "transferId=" + transferId +
                 ", transferTypeId=" + transferTypeId +
                 ", transferStatusId=" + transferStatusId +
-                ", accountFrom=" + accountFrom +
-                ", accountTo=" + accountTo +
+                ", userFrom=" + userFrom +
+                ", userTo=" + userTo +
                 ", amount=" + amount +
                 '}';
     }
@@ -77,12 +77,12 @@ public class Transfer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transfer transfer = (Transfer) o;
-        return transferId == transfer.transferId && transferTypeId == transfer.transferTypeId && transferStatusId == transfer.transferStatusId && accountFrom == transfer.accountFrom && accountTo == transfer.accountTo && Objects.equals(amount, transfer.amount);
+        return transferId == transfer.transferId && transferTypeId == transfer.transferTypeId && transferStatusId == transfer.transferStatusId && userFrom == transfer.userFrom && userTo == transfer.userTo && Objects.equals(amount, transfer.amount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(transferId, transferTypeId, transferStatusId, accountFrom, accountTo, amount);
+        return Objects.hash(transferId, transferTypeId, transferStatusId, userFrom, userTo, amount);
     }
 
 }
