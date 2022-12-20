@@ -1,18 +1,18 @@
-# Module 2 Capstone - TEnmo
+# "TEnmo" Banking Application
 
-Congratulations—you've landed a job with TEnmo, whose product is an online payment service for transferring "TE bucks" between friends. However, they don't have a product yet. You've been tasked with finalizing the server side of the application: a database and a RESTful API server.
+User accounts: Users can create an account, login, and manage their personal information and payment methods.
 
-You will need to add controllers, models, DAOs, and database tables to implement the following features:
+Payment processing: The app allows users to send and receive payments to and from other users, either by entering an amount and a recipient manually or by selecting a payment from a list of recent transactions.
+
+Transaction history: Users can view a history of their past transactions, including the date, amount, and recipient of each payment.
+
+Security: The app implements measures to protect user data and prevent unauthorized access to accounts and transactions.
 
 ## Use cases
 
-### Required use cases
-
-You should attempt to complete all of the following required use cases.
-
-1. **[COMPLETE]** As a user of the system, I need to be able to register myself with a username and password.
+1. As a user of the system, I need to be able to register myself with a username and password.
    1. The ability to register has been provided in your starter code.
-2. **[COMPLETE]** As a user of the system, I need to be able to log in using my registered username and password.
+2. As a user of the system, I need to be able to log in using my registered username and password.
    1. Logging in returns an Authentication Token. I need to include this token with all my subsequent interactions with the system outside of registering and logging in.
    2. The ability to log in has been provided in your starter code.
 3. As a user, when I register a new account is created for me.
@@ -29,11 +29,6 @@ You should attempt to complete all of the following required use cases.
    8. A Sending Transfer has an initial status of *Approved*.
 6. As an authenticated user of the system, I need to be able to see transfers I have sent or received.
 7. As an authenticated user of the system, I need to be able to retrieve the details of any transfer based upon the transfer ID.
-
-Validate all of the API's endpoints using Postman and/or Swagger
-
-###  Challenge use cases
-
 8. As an authenticated user of the system, I need to be able to *request* a transfer of a specific amount of TE Bucks from another registered user.
    1. I should be able to choose from a list of users to request TE Bucks from.
    2. I must not be allowed to request money from myself.
@@ -50,17 +45,13 @@ Validate all of the API's endpoints using Postman and/or Swagger
    11. If the transfer is approved, the requestee's account balance is decreased by the amount of the request.
    12. If the transfer is rejected, no account balance changes.
 
-### Bonus Challenge
-
-If you complete all of the required and challenge use cases and are looking for yet another challenge, create a Command Line Interface (CLI) client application for TEnmo. The file CLI.md contains sample user experiences for inspiration. 
-
 ## How to set up the database
 
 Create a new Postgres database called `tenmo`. Run the `database/tenmo.sql` script in pgAdmin to set up the database that you'll begin to work from. You should make structure changes in this script and not the database directly. Additionally, both you and your team members need to run this script each time after making changes to it. 
 
 ## Database schema
 
-The following tables are created by the provided `tenmo.sql` script. 
+The following tables are created from the `tenmo.sql` script. 
 
 ### `tenmo_user` table
 
